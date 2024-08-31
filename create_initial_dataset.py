@@ -146,8 +146,7 @@ def read_group_lyrics_html(group):
             lyrics,album, year = read_song_lyrics_html(url)
             
         else:
-            
-            lyrics, album, year = read_group_lyrics_html(song_urls[i])
+            lyrics, album, year = read_song_lyrics_html(song_urls[i])
         song_lyrics.append(lyrics)
         song_album.append(album)
         song_year.append(year)
