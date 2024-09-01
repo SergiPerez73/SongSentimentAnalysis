@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import argparse
 
 def get_album_start_index(df):
     start_album_index = len(df)
@@ -46,9 +47,15 @@ def scatter_plot_group(name):
     plt.grid()
     plt.show()
 
-if __name__ == "__main__":
-    names = ['ledzeppelin','redhotchilipeppers']
-    name = 'redhotchilipeppers'
+def addArgs(parser):
+    parser.add_argument('-single',type=str,required=True,help='name of the group to show the single group plot')
+    parser.add_argument('-multiple',nargs='+',required=True,help='name of the groups to show the multiple groups plot')
 
-    plot_groups(names)
-    scatter_plot_group(name)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Create the initial dataset.')
+    addArgs(parser)
+
+    args = parser.parse_args()
+
+    plot_groups(args.multiple)
+    scatter_plot_group(args.single)

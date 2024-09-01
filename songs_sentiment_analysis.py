@@ -2,6 +2,7 @@ import torch
 from transformers import DistilBertTokenizer, DistilBertForSequenceClassification
 import pandas as pd
 import time
+import argparse
 
 tokenizer = DistilBertTokenizer.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english")
 model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased-finetuned-sst-2-english")
@@ -49,8 +50,15 @@ def analyze_songs(name):
     df = df.drop(['lyrics','url'], axis=1)
     df.to_csv(name+'-scores.csv')
 
+def addArgs(parser):
+    parser.add_argument('-group-name',type=str,required=True,help='name of the group whose lyrics will be analyzed')
+
 if __name__ == "__main__":
-    group= 'eminem'
+    parser = argparse.ArgumentParser(description='Analyze sentiment of each song of the group.')
+
+    addArgs(parser)
+
+    args = parser.parse_args()
     
-    analyze_songs(group)
+    analyze_songs(args.group_name)
 

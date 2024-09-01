@@ -1,6 +1,7 @@
 import requests
 import pandas as pd
 import time
+import argparse
 
 def find_point_html(html_content,word,start_point,offset):
     #Gets an html_content to find a word starting by
@@ -164,10 +165,17 @@ def read_group_lyrics_html(group):
 
     df_songlist.to_csv(group+'.csv')
 
+def addArgs(parser):
+    parser.add_argument('-group-name',type=str,required=True,help='name of the group whose lyrics will be extracted')
+
 if __name__ == "__main__":
-    group= 'eminem'
+    parser = argparse.ArgumentParser(description='Create the initial dataset.')
+
+    addArgs(parser)
+
+    args = parser.parse_args()
     
-    read_group_lyrics_html(group)
+    read_group_lyrics_html(args.group_name)
 
     
 
