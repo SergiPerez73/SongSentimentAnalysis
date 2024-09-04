@@ -9,6 +9,10 @@ model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-unc
 
 
 def analyze_sentence(sentence):
+    #Gets a sentence and returns the logits of the
+    #negative and positive sentiment separated.
+    #Uses DistilBert finetuned with sst.
+
     inputs = tokenizer(sentence, return_tensors="pt")
     with torch.no_grad():
         logits = model(**inputs).logits
@@ -16,6 +20,12 @@ def analyze_sentence(sentence):
     return logits_list[0], logits_list[1]
 
 def analyze_songs(name):
+    #Receives the name of a group and loads its
+    #previously saved dataset to add the score of
+    #each song computed anlyzing each sentence of
+    #its lyrics. The dataset saved is ordered by
+    #year and does not contain url nor lyrics.
+
     df = pd.read_csv(name+'.csv')
 
     score_positive = []

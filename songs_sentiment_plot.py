@@ -3,6 +3,11 @@ import matplotlib.pyplot as plt
 import argparse
 
 def get_album_start_index(df):
+    #Gets the scores dataset and
+    #returns the point where the dataset
+    #starts showing rows of year > 0, not
+    #singles.
+
     start_album_index = len(df)
     for i in range(len(df)):
         year = df.loc[i,'year']
@@ -12,6 +17,9 @@ def get_album_start_index(df):
     return start_album_index
 
 def plot_groups(names):
+    #Visualizes the multiple plot
+    #with matplotlib.
+
     plt.figure(figsize=(10,5))
     plt.ylim([0, 1])
     for name in names:
@@ -29,6 +37,9 @@ def plot_groups(names):
     plt.show()
 
 def scatter_plot_group(name):
+    #Visualizes the single plot
+    #with matplotlib.
+
     df = pd.read_csv(name+'-scores.csv')
     album_start_index = get_album_start_index(df)
     df = df[album_start_index:]
